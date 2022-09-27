@@ -22,8 +22,7 @@ class ApplicationModule {
     fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        OkHttpClient
-            .Builder()
+        OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
     } else {
@@ -51,5 +50,4 @@ class ApplicationModule {
     companion object {
         private const val API_URL = "https://disease.sh/v3/covid-19/"
     }
-
 }
