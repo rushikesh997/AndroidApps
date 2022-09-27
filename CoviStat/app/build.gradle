@@ -5,6 +5,10 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
+def keystorePropertiesFile = file("../keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     namespace 'com.example.covistat'
     compileSdk 32
@@ -34,6 +38,14 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    signingConfigs {
+        release {
+            storeFile file("keystore.jks")
+            storePassword keystoreProperties["storePassword"].toString()
+            keyAlias keystoreProperties["keyAlias"].toString()
+            keyPassword keystoreProperties["keyPassword"].toString()
+        }
     }
 }
 

@@ -3,20 +3,23 @@ package com.example.covistat
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.covistat.databinding.CountryRowBinding
 import com.squareup.picasso.Picasso
+import java.util.*
+import kotlin.collections.ArrayList
 
-class CountryAdapter: RecyclerView.Adapter<CountryAdapter.CountryHolder>() {
+class CountryAdapter: RecyclerView.Adapter<CountryAdapter.CountryHolder>(), Filterable {
     private var onItemClickListener: OnItemClickListener? = null
-    private var countriesList: List<CountriesResponse>? = null
-    private var countriesListed: List<CountriesResponse>? = null
+    private var countriesList: List<CountryResponse>? = null
+    private var countriesListed: List<CountryResponse>? = null
     private var context:Context? = null
 
-    fun setCountriesList(context: Context?, countriesList: List<CountriesResponse>) {
+    fun setCountriesList(context: Context?, countriesList: List<CountryResponse>) {
         this.context = context
-
         if (this.countriesList == null) {
             this.countriesList = countriesList
             countriesListed = countriesList
@@ -36,10 +39,8 @@ class CountryAdapter: RecyclerView.Adapter<CountryAdapter.CountryHolder>() {
                     return this@CountryAdapter.countriesList!![oldItemPosition].country === countriesList[newItemPosition].country
                 }
 
-                override fun areContentsTheSame(
-                    oldItemPosition: Int,
-                    newItemPosition: Int
-                ): Boolean {
+                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean
+                {
                     val newMovie = this@CountryAdapter.countriesList!![oldItemPosition]
                     val oldMovie = countriesList[newItemPosition]
                     return newMovie.country == oldMovie.country
@@ -58,14 +59,16 @@ class CountryAdapter: RecyclerView.Adapter<CountryAdapter.CountryHolder>() {
     inner class CountryHolder(val binding: CountryRowBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryHolder {
-        val view = CountryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = CountryRowBinding.inflate(LayoutInflater.from(parent.context), parent,
+            false)
         return CountryHolder(view)
     }
 
     override fun onBindViewHolder(holder: CountryHolder, position: Int) {
         holder.binding.tvCountryDeath.text = "Total Death : " + countriesListed!![position].deaths
         holder.binding.tvCountryName.text = countriesListed!![position].country
-        Picasso.get().load(countriesListed!![position].flag).into(holder.binding.ivCountryPoster)
+        Picasso.get().load(countriesListed!![position].countryInfo!!.flag)
+            .into(holder.binding.ivCountryPoster)
         holder.itemView.setOnClickListener {
             if (onItemClickListener == null) return@setOnClickListener
             onItemClickListener?.onItemClick(countriesListed!![position])
@@ -81,6 +84,34 @@ class CountryAdapter: RecyclerView.Adapter<CountryAdapter.CountryHolder>() {
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: CountriesResponse)
+        fun onItemClick(item: CountryResponse)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val charString = charSequence.toString()
+                countriesListed = if (charString.isEmpty()) {
+                    countriesList
+                } else {
+                    val filteredList : MutableList<CountryResponse> = ArrayList()
+                    for (country in countriesList!!) {
+                        if (country.country!!.lowercase(Locale.getDefault()).contains(charString.lowercase(
+                                Locale.getDefault()))) {
+                            filteredList.add(country)
+                        }
+                    }
+                    filteredList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = countriesListed
+                return filterResults
+            }
+
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                countriesListed = filterResults.values as ArrayList<CountryResponse>
+                notifyDataSetChanged()
+            }
+        }
     }
 }

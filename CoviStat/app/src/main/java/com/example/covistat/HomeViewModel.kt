@@ -13,8 +13,8 @@ class HomeViewModel @Inject constructor(
     private val networkHelper: NetworkHelper
 ): ViewModel() {
 
-    private val _countryData = MutableLiveData<Source<List<CountriesResponse>>>()
-    val countryData : LiveData<Source<List<CountriesResponse>>> get() = _countryData
+    private val _countryData = MutableLiveData<Source<List<CountryResponse>>>()
+    val countryData : LiveData<Source<List<CountryResponse>>> get() = _countryData
 
     init {
         getData()
