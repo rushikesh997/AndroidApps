@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CurrencyDekho</string>
+    <string name="currencyFlag">CurrencyFlag</string>
+    <string name="convert">convert</string>
+    <string name="currency_flag">Currency Flag</string>
+    <string name="none">None</string>
+    <string name="equal">=</string>
+    <string name="question">\???</string>
+</resources>
