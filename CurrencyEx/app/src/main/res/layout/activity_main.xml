@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/img_cur_flag_from"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/currencyFlag"
+            tools:src="@color/grey"/>
+
+        <ImageView
+            android:id="@+id/img_convert"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/convert"
+            android:src="@drawable/ic_convert"/>
+
+        <ImageView
+            android:id="@+id/img_cur_flag_to"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/currencyFlag"
+            tools:src="@color/grey"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_cur_from"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:gravity="start|bottom"
+            android:padding="10dp"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="USD"/>
+
+        <TextView
+            android:id="@+id/txt_cur_to"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="end"
+            android:padding="10dp"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="INR"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/txt_cur_unit_from"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1.3"
+            android:padding="10dp"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="1"/>
+
+        <TextView
+            android:id="@+id/txt_cur_from_sc"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="0.7"
+            android:padding="10dp"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="USD"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/grey"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/equal"/>
+
+        <TextView
+            android:id="@+id/txt_cur_unit_to"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1.3"
+            android:gravity="start"
+            android:padding="10dp"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="@string/question"/>
+
+        <TextView
+            android:id="@+id/txt_cur_to_sc"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="0.7"
+            android:padding="10dp"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="INR"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/black"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_rates_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</LinearLayout>
