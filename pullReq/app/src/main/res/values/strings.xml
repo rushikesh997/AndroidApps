@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyPullRequests</string>
+    <string name="created_date">Created At</string>
+    <string name="closed_date">Closed At</string>
+    <string name="username">Username</string>
+    <string name="title">Title</string>
+</resources>
